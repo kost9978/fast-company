@@ -2,7 +2,7 @@ import React from "react";
 import Qualitie from "./qualities";
 import Bookmark from "./bookmark";
 const User = (props) => {
-  const { user, hendleBookmark } = props;
+  const { user, hendleBookmark, handleDelete } = props;
   return (
     <>
       <td>{user.name}</td>
@@ -16,6 +16,14 @@ const User = (props) => {
           status={user.bookmark}
           id={user._id}
         />
+      </td>
+      <td>
+        <button
+          onClick={() => handleDelete(user._id)}
+          className="btn btn-danger"
+        >
+          delete
+        </button>
       </td>
     </>
   );

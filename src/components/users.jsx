@@ -20,16 +20,7 @@ const Users = (props) => {
           <tbody>
             {users.map((user) => (
               <tr key={user._id}>
-                <User hendleBookmark={props.hendleBookmark} user={user} />
-
-                <td>
-                  <button
-                    onClick={() => props.handleDelete(user._id)}
-                    className="btn btn-danger"
-                  >
-                    delete
-                  </button>
-                </td>
+                <User hendleBookmark={props.hendleBookmark} user={user} handleDelete ={ props.handleDelete} />
               </tr>
             ))}
           </tbody>
