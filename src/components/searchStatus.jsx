@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 const renderPhrase = (number) => {
     const lastOne = Number(number.toString().slice(-1));
     if (number > 4 && number < 15) return "человек тусанет";
@@ -19,5 +20,9 @@ const Status = (number) => {
             </span>
         </h2>
     );
+};
+
+Status.propTypes = {
+    number: PropTypes.number.isRequired
 };
 export default Status;

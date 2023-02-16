@@ -17,7 +17,7 @@ const App = () => {
     };
     return (
         <div>
-            {Status(users.length)}
+            <Status number={users.length} />
             <Users
                 users={users}
                 handleDelete={handleDelete}

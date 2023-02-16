@@ -7,7 +7,11 @@ const User = (props) => {
     return (
         <>
             <td>{user.name}</td>
-            <td>{user.qualities.map((item) => Qualitie(item))}</td>
+            <td>
+                {user.qualities.map((item) => (
+                    <Qualitie key={item._id} qualitie={item} />
+                ))}
+            </td>
             <td>{user.profession.name}</td>
             <td>{user.completedMeetings}</td>
             <td>{user.rate} /5</td>
