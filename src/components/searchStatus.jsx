@@ -8,7 +8,7 @@ const renderPhrase = (number) => {
     return "человек тусанет";
 };
 
-const Status = (number) => {
+const Status = ({ number }) => {
     return (
         <h2>
             <span
