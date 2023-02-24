@@ -2,8 +2,7 @@ import React from "react";
 import Qualitie from "./qualities";
 import Bookmark from "./bookmark";
 import PropTypes from "prop-types";
-const User = (props) => {
-    const { user, hendleBookmark, handleDelete } = props;
+const User = ({ user, hendleBookmark, handleDelete }) => {
     return (
         <>
             <td>{user.name}</td>

@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { professions } from "./../API/fake.api/professions.api";
 
 const GroupList = ({
     items,
@@ -9,19 +8,20 @@ const GroupList = ({
     onProfessionSelect,
     selectedProf
 }) => {
+    const arrayItems = Array.isArray(items) ? items : Object.values(items);
     return (
         <ul className="list-group">
-            {Object.keys(items).map((item) => (
+            {arrayItems.map((item) => (
                 <li
-                    key={items[item][valueProperty]}
+                    key={item[valueProperty]}
                     className={
                         "list-group-item" +
-                        (items[item] === selectedProf ? " active" : "")
+                        (item[valueProperty] === selectedProf ? " active" : "")
                     }
-                    onClick={() => onProfessionSelect(items[item])}
+                    onClick={() => onProfessionSelect(item[valueProperty])}
                     role="button"
                 >
-                    {items[item][contentProperty]}
+                    {item[contentProperty]}
                 </li>
             ))}
         </ul>
@@ -32,10 +32,10 @@ GroupList.defaultProps = {
     contentProperty: "name"
 };
 GroupList.propTypes = {
-    items: PropTypes.object.isRequired,
+    items: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
     valueProperty: PropTypes.string.isRequired,
     contentProperty: PropTypes.string.isRequired,
     onProfessionSelect: PropTypes.func.isRequired,
-    selectedProf: PropTypes.object
+    selectedProf: PropTypes.string
 };
 export default GroupList;

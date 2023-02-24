@@ -17,15 +17,15 @@ const Users = (props) => {
         API.professions.fetchAll().then((data) => setProfessions(data));
     }, []);
     useEffect(() => setCurrentPage(1), [selectedProf]);
-    const handleProfessionSelect = (prof) => {
-        // console.log(prof);
-        setSelectedProf(prof);
+
+    const handleProfessionSelect = (id) => {
+        setSelectedProf(id);
     };
     const hendlePageChange = (pageIndex) => {
         setCurrentPage(pageIndex);
     };
     const filteredUsers = selectedProf
-        ? users.filter((user) => user.profession === selectedProf)
+        ? users.filter((user) => user.profession._id === selectedProf)
         : users;
 
     const itemsCount = filteredUsers.length;

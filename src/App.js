@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Users from "./components/users";
 import API from "./API/index.js";
-const App = () => {
-    const [users, setUsers] = useState(API.users.fetchAll());
 
+const App = () => {
+    const [users, setUsers] = useState();
+    useEffect(() => {
+        API.users.fetchAll().then((data) => setUsers(data));
+    }, []);
     const handleDelete = (userId) => {
         setUsers(users.filter((user) => user._id !== userId));
     };
@@ -15,11 +18,15 @@ const App = () => {
         );
     };
     return (
-        <Users
-            users={users}
-            handleDelete={handleDelete}
-            hendleBookmark={hendleBookmark}
-        />
+        <>
+            {users && (
+                <Users
+                    users={users}
+                    handleDelete={handleDelete}
+                    hendleBookmark={hendleBookmark}
+                />
+            )}
+        </>
     );
 };
 export default App;
