@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Users from "./components/users";
 import API from "./API/index.js";
-import Status from "./components/searchStatus";
 const App = () => {
     const [users, setUsers] = useState(API.users.fetchAll());
 
@@ -16,14 +15,11 @@ const App = () => {
         );
     };
     return (
-        <div>
-            <Status number={users.length} />
-            <Users
-                users={users}
-                handleDelete={handleDelete}
-                hendleBookmark={hendleBookmark}
-            />
-        </div>
+        <Users
+            users={users}
+            handleDelete={handleDelete}
+            hendleBookmark={hendleBookmark}
+        />
     );
 };
 export default App;
