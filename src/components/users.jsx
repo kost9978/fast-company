@@ -25,7 +25,11 @@ const Users = (props) => {
         setCurrentPage(pageIndex);
     };
     const filteredUsers = selectedProf
-        ? users.filter((user) => user.profession._id === selectedProf)
+        ? users.filter(
+            (user) =>
+                JSON.stringify(user.profession) ===
+                  JSON.stringify(selectedProf)
+        )
         : users;
 
     const itemsCount = filteredUsers.length;
