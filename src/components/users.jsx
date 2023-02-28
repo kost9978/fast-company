@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import User from "./user.jsx";
 import Pagination from "./pagination.jsx";
 import { paginate } from "./../utils/paginate";
 import PropTypes from "prop-types";
@@ -7,8 +6,8 @@ import GroupList from "./groupList.jsx";
 import API from "../API/index.js";
 import { noConflict } from "lodash";
 import Status from "./searchStatus";
-const Users = (props) => {
-    const users = props.users;
+import UsersTable from "./usersTable";
+const Users = ({ users, ...rest }) => {
     const pageSize = 2;
     const [currentPage, setCurrentPage] = useState(1);
     const [professions, setProfessions] = useState();
@@ -60,29 +59,8 @@ const Users = (props) => {
             <div className="d-flex flex-column">
                 <Status number={itemsCount} />
                 {users.length > 0 && (
-                    <table className="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">Имя</th>
-                                <th scope="col">Качества</th>
-                                <th scope="col">Профессия</th>
-                                <th scope="col">Встретился, раз</th>
-                                <th scope="col">Оценка</th>
-                                <th scope="col">Избранное</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {usersCrop.map((user) => (
-                                <tr key={user._id}>
-                                    <User
-                                        hendleBookmark={props.hendleBookmark}
-                                        user={user}
-                                        handleDelete={props.handleDelete}
-                                    />
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                    <UsersTable users = {usersCrop} {...rest}/>
+
                 )}
 
                 <div className="d-flex justify-content-center">
@@ -98,8 +76,7 @@ const Users = (props) => {
     );
 };
 Users.propTypes = {
-    users: PropTypes.array.isRequired,
-    hendleBookmark: PropTypes.func.isRequired,
-    handleDelete: PropTypes.func.isRequired
+    users: PropTypes.array.isRequired
+
 };
 export default Users;
