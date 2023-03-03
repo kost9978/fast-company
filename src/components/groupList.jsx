@@ -36,6 +36,6 @@ GroupList.propTypes = {
     valueProperty: PropTypes.string.isRequired,
     contentProperty: PropTypes.string.isRequired,
     onProfessionSelect: PropTypes.func.isRequired,
-    selectedProf: PropTypes.string
+    selectedProf: PropTypes.object
 };
 export default GroupList;
