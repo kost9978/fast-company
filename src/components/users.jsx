@@ -4,14 +4,16 @@ import { paginate } from "./../utils/paginate";
 import PropTypes from "prop-types";
 import GroupList from "./groupList.jsx";
 import API from "../API/index.js";
-import { noConflict } from "lodash";
+// import { noConflict } from "lodash";
 import Status from "./searchStatus";
 import UsersTable from "./usersTable";
+import _ from "lodash";
 const Users = ({ users, ...rest }) => {
-    const pageSize = 2;
+    const pageSize = 8;
     const [currentPage, setCurrentPage] = useState(1);
     const [professions, setProfessions] = useState();
     const [selectedProf, setSelectedProf] = useState();
+    const [sortBy, setSortBy] = useState({ path: "name", order: "asc" });
     useEffect(() => {
         API.professions.fetchAll().then((data) => setProfessions(data));
     }, []);
@@ -23,6 +25,10 @@ const Users = ({ users, ...rest }) => {
     const hendlePageChange = (pageIndex) => {
         setCurrentPage(pageIndex);
     };
+    const handleSort = (item) => {
+        setSortBy(item);
+        setCurrentPage(1);
+    };
     const filteredUsers = selectedProf
         ? users.filter(
             (user) =>
@@ -32,8 +38,8 @@ const Users = ({ users, ...rest }) => {
         : users;
 
     const itemsCount = filteredUsers.length;
-
-    const usersCrop = paginate(filteredUsers, currentPage, pageSize);
+    const sortedUsers = _.orderBy(filteredUsers, [sortBy.path], [sortBy.order]);
+    const usersCrop = paginate(sortedUsers, currentPage, pageSize);
     const clearFilter = () => {
         setSelectedProf();
     };
@@ -59,7 +65,7 @@ const Users = ({ users, ...rest }) => {
             <div className="d-flex flex-column">
                 <Status number={itemsCount} />
                 {users.length > 0 && (
-                    <UsersTable users = {usersCrop} {...rest}/>
+                    <UsersTable users = {usersCrop} onSort ={handleSort} selectedSort ={sortBy} {...rest}/>
 
                 )}
 
