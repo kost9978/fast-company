@@ -8,9 +8,6 @@ const User = ({ user, hendleBookmark, handleDelete }) => {
             <td>{user.name}</td>
             <td>
                 <QualitiesList qualities = {user.qualities}/>
-                {/* {user.qualities.map((item) => (
-                    <Qualitie key={item._id} qualitie={item} />
-                ))} */}
             </td>
             <td>{user.profession.name}</td>
             <td>{user.completedMeetings}</td>

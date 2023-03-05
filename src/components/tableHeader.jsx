@@ -1,9 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
+import IconCaret from "./iconCaret";
 const TableHeader = ({ onSort, selectedSort, columns }) => {
     const handleSort = (item) => {
-        // console.log("selectedSort.path -", selectedSort.path);
-        // console.log("item -", item);
         if (selectedSort.path === item) {
             onSort({ ...selectedSort, order: selectedSort.order === "asc" ? "desc" : "asc" });
         } else {
@@ -19,6 +18,7 @@ const TableHeader = ({ onSort, selectedSort, columns }) => {
                         scope="col"
                         {...{ role: columns[column].path && "button" } }>
                         {columns[column].name}
+                        {columns[column].directionSort && <IconCaret directionSort = {columns[column].directionSort}/>}
                     </th>
                 ))}
 
