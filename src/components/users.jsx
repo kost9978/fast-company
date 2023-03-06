@@ -4,7 +4,6 @@ import { paginate } from "./../utils/paginate";
 import GroupList from "./groupList.jsx";
 import API from "../API/index.js";
 
-// import { noConflict } from "lodash";
 import Status from "./searchStatus";
 import UsersTable from "./usersTable";
 import _ from "lodash";

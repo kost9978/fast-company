@@ -34,13 +34,7 @@ const UsersTable = ({ users, onSort, selectedSort, hendleBookmark, handleDelete,
             )
         }
     };
-    for (const key in columns) {
-        if (columns[key].path && columns[key].path === selectedSort.path) {
-            columns[key].directionSort = selectedSort.order === "asc" ? "up" : "down";
-        } else if (columns[key].directionSort) {
-            delete columns[key].directionSort;
-        }
-    }
+
     return (
         <Table data ={users} columns ={columns} {...rest } onSort={onSort} selectedSort ={selectedSort}>
             <TableHeader {...{ onSort, selectedSort, columns }}/>

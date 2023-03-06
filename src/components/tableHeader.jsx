@@ -9,6 +9,16 @@ const TableHeader = ({ onSort, selectedSort, columns }) => {
             onSort({ path: item, order: "asc" });
         }
     };
+    const renderSortArrow = (currentPath) => {
+        if (selectedSort.path === currentPath) {
+            if (selectedSort.order === "asc") {
+                return <IconCaret directionSort ={"down"}/>;
+            } else {
+                return <IconCaret directionSort ={"up"}/>;
+            }
+        }
+        return null;
+    };
     return (
         <thead>
             <tr>
@@ -18,7 +28,7 @@ const TableHeader = ({ onSort, selectedSort, columns }) => {
                         scope="col"
                         {...{ role: columns[column].path && "button" } }>
                         {columns[column].name}
-                        {columns[column].directionSort && <IconCaret directionSort = {columns[column].directionSort}/>}
+                        {renderSortArrow(columns[column].path)}
                     </th>
                 ))}
 
