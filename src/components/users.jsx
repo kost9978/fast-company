@@ -15,7 +15,7 @@ const Users = () => {
     const [user, setUser] = useState();
     useEffect(() => {
         API.users.getById(userId).then((data) => setUser(data));
-    });
+    }, [userId]);
 
     const [users, setUsers] = useState();
     useEffect(() => {
