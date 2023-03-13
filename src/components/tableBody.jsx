@@ -16,10 +16,10 @@ const TableBody = ({ data, columns }) => {
 
     return (
         data && <tbody>
-            {data.map((user) => <tr key = {user._id}>
+            {data.map((user) => <tr key={user._id}>
                 {Object.keys(columns).map((column) =>
                     <td
-                        key = {column}>
+                        key={column}>
                         {renderContent(user, column)}
                     </td>)}
             </tr>)}
