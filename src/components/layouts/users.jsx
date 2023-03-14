@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import Pagination from "./pagination.jsx";
-import { paginate } from "./../utils/paginate";
-import GroupList from "./groupList.jsx";
-import API from "../API/index.js";
-import Status from "./searchStatus";
-import UsersTable from "./usersTable";
+import Pagination from "../pagination.jsx";
+import { paginate } from "../../utils/paginate";
+import GroupList from "../groupList.jsx";
+import API from "../../API/index.js";
+import Status from "../searchStatus";
+import UsersTable from "../usersTable";
 import _ from "lodash";
-import UserPage from "./userPage.jsx";
+import UserPage from "../userPage.jsx";
 import { useParams } from "react-router-dom";
 
 const Users = () => {
@@ -107,7 +107,7 @@ const Users = () => {
                 </div>
             </div>
         );
-    } else if (userId && user) { return <UserPage user={user} />; }
+    } else if (userId) { return <UserPage userId={userId} />; }
     return "Loading...";
 };
 export default Users;
