@@ -1,22 +1,13 @@
 import React, { useState, useEffect } from "react";
-import Pagination from "../pagination.jsx";
-import { paginate } from "../../utils/paginate";
-import GroupList from "../groupList.jsx";
-import API from "../../API/index.js";
-import Status from "../searchStatus";
-import UsersTable from "../usersTable";
+import Pagination from "./pagination.jsx";
+import { paginate } from "../utils/paginate";
+import GroupList from "./groupList.jsx";
+import API from "../API/index.js";
+import Status from "./searchStatus";
+import UsersTable from "./usersTable";
 import _ from "lodash";
-import UserPage from "../userPage.jsx";
-import { useParams } from "react-router-dom";
 
-const Users = () => {
-    const { userId } = useParams();
-
-    const [user, setUser] = useState();
-    useEffect(() => {
-        API.users.getById(userId).then((data) => setUser(data));
-    }, [userId]);
-
+const UsersList = () => {
     const [users, setUsers] = useState();
     useEffect(() => {
         API.users.fetchAll().then((data) => setUsers(data));
@@ -51,7 +42,7 @@ const Users = () => {
         setSortBy(item);
         setCurrentPage(1);
     };
-    if (users && !userId) {
+    if (users) {
         const filteredUsers = selectedProf
             ? users.filter(
                 (user) =>
@@ -107,7 +98,7 @@ const Users = () => {
                 </div>
             </div>
         );
-    } else if (userId) { return <UserPage userId={userId} />; }
+    };
     return "Loading...";
 };
-export default Users;
+export default UsersList;
