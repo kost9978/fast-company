@@ -21,11 +21,13 @@ const UserPage = ({ userId }) => {
                 <h3>{`completedMeetings: ${user.completedMeetings}`}</h3>
                 <h1>{`rate: ${user.rate}`}</h1>
                 <button type="button" onClick={handleReturn}>
-                Все пользователи
+                    Все пользователи
                 </button>
             </>
         );
-    } else { return "Loading..."; }
+    } else {
+        return "Loading...";
+    }
 };
 UserPage.propTypes = {
     userId: PropTypes.string.isRequired

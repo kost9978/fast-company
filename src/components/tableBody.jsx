@@ -15,20 +15,22 @@ const TableBody = ({ data, columns }) => {
     };
 
     return (
-        data && <tbody>
-            {data.map((user) => <tr key={user._id}>
-                {Object.keys(columns).map((column) =>
-                    <td
-                        key={column}>
-                        {renderContent(user, column)}
-                    </td>)}
-            </tr>)}
-        </tbody>);
+        data && (
+            <tbody>
+                {data.map((user) => (
+                    <tr key={user._id}>
+                        {Object.keys(columns).map((column) => (
+                            <td key={column}>{renderContent(user, column)}</td>
+                        ))}
+                    </tr>
+                ))}
+            </tbody>
+        )
+    );
 };
 TableBody.propTypes = {
     data: PropTypes.array.isRequired,
     columns: PropTypes.object.isRequired
-
 };
 
 export default TableBody;

@@ -6,12 +6,33 @@ import Bookmark from "./bookmark";
 import QualitiesList from "./qualitiesList";
 import Table from "./table.jsx";
 import { Link } from "react-router-dom";
-const UsersTable = ({ users, onSort, selectedSort, hendleBookmark, handleDelete, ...rest }) => {
+const UsersTable = ({
+    users,
+    onSort,
+    selectedSort,
+    hendleBookmark,
+    handleDelete,
+    ...rest
+}) => {
     const columns = {
-        name: { path: "name", name: "Имя", component: (user) => <Link key={user._id} to={"users/" + user._id}>{user.name}</Link> },
-        qualites: { name: "Качества", component: (user) => (<QualitiesList qualities={user.qualities} />) },
+        name: {
+            path: "name",
+            name: "Имя",
+            component: (user) => (
+                <Link key={user._id} to={"users/" + user._id}>
+                    {user.name}
+                </Link>
+            )
+        },
+        qualites: {
+            name: "Качества",
+            component: (user) => <QualitiesList qualities={user.qualities} />
+        },
         profession: { path: "profession.name", name: "Профессия" },
-        completedMeetings: { path: "completedMeetings", name: "Встретился, раз" },
+        completedMeetings: {
+            path: "completedMeetings",
+            name: "Встретился, раз"
+        },
         rate: { path: "rate", name: "Оценка" },
         bookmark: {
             path: "bookmark",
@@ -37,11 +58,16 @@ const UsersTable = ({ users, onSort, selectedSort, hendleBookmark, handleDelete,
     };
 
     return (
-        <Table data={users} columns={columns} {...rest} onSort={onSort} selectedSort={selectedSort}>
+        <Table
+            data={users}
+            columns={columns}
+            {...rest}
+            onSort={onSort}
+            selectedSort={selectedSort}
+        >
             <TableHeader {...{ onSort, selectedSort, columns }} />
             <TableBody data={users} columns={columns} />
         </Table>
-
     );
 };
 UsersTable.propTypes = {

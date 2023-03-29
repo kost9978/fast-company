@@ -22,10 +22,12 @@ const UsersList = () => {
             )
         );
     };
+
     const pageSize = 8;
     const [currentPage, setCurrentPage] = useState(1);
     const [professions, setProfessions] = useState();
     const [selectedProf, setSelectedProf] = useState();
+    const [selectedSearch, setSelectedSearch] = useState("");
     const [sortBy, setSortBy] = useState({ path: "name", order: "asc" });
     useEffect(() => {
         API.professions.fetchAll().then((data) => setProfessions(data));
@@ -43,19 +45,29 @@ const UsersList = () => {
         setCurrentPage(1);
     };
     if (users) {
-        const filteredUsers = selectedProf
+        let filteredUsers = selectedProf
             ? users.filter(
                 (user) =>
                     JSON.stringify(user.profession) ===
-                    JSON.stringify(selectedProf)
+                      JSON.stringify(selectedProf)
             )
             : users;
+        filteredUsers = selectedSearch
+            ? users.filter((user) => user.name.toLowerCase().includes(selectedSearch.toLowerCase()))
+            : filteredUsers;
 
         const itemsCount = filteredUsers.length;
-        const sortedUsers = _.orderBy(filteredUsers, [sortBy.path], [sortBy.order]);
+        const sortedUsers = _.orderBy(
+            filteredUsers,
+            [sortBy.path],
+            [sortBy.order]
+        );
         const usersCrop = paginate(sortedUsers, currentPage, pageSize);
         const clearFilter = () => {
             setSelectedProf();
+        };
+        const handleSearch = ({ target }) => {
+            setSelectedSearch(target.value.trim());
         };
         return (
             <div className="d-flex">
@@ -78,13 +90,15 @@ const UsersList = () => {
                 )}
                 <div className="d-flex flex-column">
                     <Status number={itemsCount} />
+                    <input type="text" className="form-control form-input" placeholder="Search" onChange={handleSearch}></input>
                     {users.length > 0 && (
-                        <UsersTable users={usersCrop}
+                        <UsersTable
+                            users={usersCrop}
                             onSort={handleSort}
                             selectedSort={sortBy}
                             handleDelete={handleDelete}
-                            hendleBookmark={hendleBookmark} />
-
+                            hendleBookmark={hendleBookmark}
+                        />
                     )}
 
                     <div className="d-flex justify-content-center">
@@ -98,7 +112,7 @@ const UsersList = () => {
                 </div>
             </div>
         );
-    };
+    }
     return "Loading...";
 };
 export default UsersList;
