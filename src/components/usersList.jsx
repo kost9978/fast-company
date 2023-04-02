@@ -53,9 +53,19 @@ const UsersList = () => {
             )
             : users;
         filteredUsers = selectedSearch
-            ? users.filter((user) => user.name.toLowerCase().includes(selectedSearch.toLowerCase()))
+            ? filteredUsers.filter((user) => user.name.toLowerCase().includes(selectedSearch.toLowerCase()))
             : filteredUsers;
-
+        // const filteredUsers = selectedSearch
+        //     ? users.filter((user) =>
+        //         user.name.toLowerCase().includes(selectedSearch.toLowerCase())
+        //     )
+        //     : selectedProf
+        //         ? users.filter(
+        //             (user) =>
+        //                 JSON.stringify(user.profession) ===
+        // JSON.stringify(selectedProf)
+        //         )
+        //         : users;
         const itemsCount = filteredUsers.length;
         const sortedUsers = _.orderBy(
             filteredUsers,
