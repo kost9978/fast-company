@@ -79,6 +79,11 @@ const UsersList = () => {
         const handleSearch = ({ target }) => {
             setSelectedSearch(target.value.trim());
         };
+        const clarSearch = () => {
+            const input = document.querySelector("#search");
+            input.value = "";
+            setSelectedSearch();
+        };
         return (
             <div className="d-flex">
                 {professions && (
@@ -100,7 +105,13 @@ const UsersList = () => {
                 )}
                 <div className="d-flex flex-column">
                     <Status number={itemsCount} />
-                    <input type="text" className="form-control form-input" placeholder="Search" onChange={handleSearch}></input>
+                    <div className="input-group mb-3">
+                        <input type="text" id = 'search'className="form-control form-input" placeholder="Search" onChange={handleSearch}></input>
+                        <button
+                            className="btn btn-secondary "
+                            onClick={clarSearch}> <i className="bi bi-x-lg"></i>
+                        </button>
+                    </div>
                     {users.length > 0 && (
                         <UsersTable
                             users={usersCrop}
