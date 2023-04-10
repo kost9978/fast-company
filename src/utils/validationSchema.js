@@ -21,5 +21,10 @@ export const validationSchema = {
         isDigit: {
             message: "Пароль должен содержать числа"
         }
+    },
+    profession: {
+        isRequired: {
+            message: "Професия обязательна для заполнения"
+        }
     }
 };

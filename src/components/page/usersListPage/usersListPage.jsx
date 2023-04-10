@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
-import Pagination from "./pagination.jsx";
-import { paginate } from "../utils/paginate";
-import GroupList from "./groupList.jsx";
-import API from "../API/index.js";
-import Status from "./searchStatus";
-import UsersTable from "./usersTable";
 import _ from "lodash";
+import UsersTable from "./../../ui/usersTable";
+import API from "./../../../API/index";
+import Pagination from "./../../common/pagination";
+import { paginate } from "./../../../utils/paginate";
+import GroupList from "./../../common/groupList";
+import Status from "./../../ui/searchStatus";
 
-const UsersList = () => {
+const UsersListPage = () => {
     const [users, setUsers] = useState();
     useEffect(() => {
         API.users.fetchAll().then((data) => setUsers(data));
@@ -136,4 +136,4 @@ const UsersList = () => {
     }
     return "Loading...";
 };
-export default UsersList;
+export default UsersListPage;

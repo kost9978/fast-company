@@ -1,50 +1,26 @@
 /* eslint-disable no-undef */
-import React, { useState, useEffect } from "react";
-import TextField from "../components/text.Field";
-import { validate } from "../utils/validatator";
-import { validationSchema } from "../utils/validationSchema";
+import React, { useState } from "react";
+import LoginForm from "../components/ui/liginForm";
+import { useParams } from "react-router-dom";
+import RegesterForm from "../components/ui/registerForm";
 const Login = () => {
-    const [data, setData] = useState({ email: "", password: "" });
-    const [errors, setErrors] = useState({});
-    useEffect(() => {
-        const errors = validate(data, validationSchema);
-        setErrors(errors);
-    }, [data]);
-    const handleChange = ({ target }) => {
-        setData((prevState) => ({ ...prevState, [target.name]: target.value }));
+    const { type } = useParams();
+    const [formType, setFormType] = useState(type === "register" ? type : "login");
+    const togleFormType = () => {
+        setFormType((prevState) => (prevState === "register" ? "login" : "register"));
     };
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log(data);
-    };
-    const isValid = Object.keys(errors).length === 0;
     return (
         <div className="container mt-5">
             <div className="row">
                 <div className="col-md-6 offset-md-3 shadow p-4">
-                    <h3 className="mb-4">Login</h3>
-                    <form onSubmit={handleSubmit}>
-
-                        <TextField label = 'Email'
-                            type= 'text'
-                            name ='email'
-                            value={data.email}
-                            onChange ={handleChange}
-                            error = {errors.email || ""}/>
-
-                        <TextField label = 'Password'
-                            type= 'password'
-                            name ='password'
-                            value={data.password}
-                            onChange ={handleChange}
-                            error = {errors.password || ""}/>
-                        <button type="submit" disabled = {!isValid} className='btn btn-primary w-100 mx-auto'>Submit</button>
-                    </form>
+                    {formType === "register"
+                        ? <><h3 className="mb-4">Register</h3>
+                            <RegesterForm/> <h1>Already have account? <a role="button" onClick={togleFormType}>Sign In</a></h1> </>
+                        : <><h3 className="mb-4">Login</h3>
+                            <LoginForm/><h1>Dont have account? <a role="button" onClick={togleFormType}>Sign Up</a></h1></>}
                 </div>
             </div>
-        </div>
-
-    );
+        </div>);
 };
 
 export default Login;
