@@ -5,24 +5,28 @@ import RadioField from "../common/form/RadioField";
 import API from "../../API";
 import { validate } from "../../utils/validatator";
 import { validationSchema } from "../../utils/validationSchema";
+import MultiSelectField from "../common/form/multiSelectField";
 const RegesterForm = () => {
-    const [data, setData] = useState({ email: "", password: "", profession: "", sex: "male" });
+    const [data, setData] = useState({ email: "", password: "", profession: "", sex: "male", qalities: [] });
     const [errors, setErrors] = useState({});
     const [professions, setProfessions] = useState();
+    const [qualities, setQualities] = useState({});
     useEffect(() => {
         const errors = validate(data, validationSchema);
         setErrors(errors);
     }, [data]);
     useEffect(() => {
         API.professions.fetchAll().then((data) => setProfessions(data));
+        API.qualities.fetchAll().then((data) => setQualities(data));
     }, []);
-    const handleChange = ({ target }) => {
-        console.log("target", target.value, target.name);
+
+    const handleChange = (target) => {
+        // console.log("target", target.value, target.name);
         setData((prevState) => ({ ...prevState, [target.name]: target.value }));
     };
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(data);
+        // console.log(data);
     };
     const isValid = Object.keys(errors).length === 0;
     return (
@@ -58,7 +62,13 @@ const RegesterForm = () => {
             name ='sex'
             value={data.sex}
             onChange ={handleChange}
-            lable = 'Выберите пол'
+            label = 'Выберите пол'
+            />
+            <MultiSelectField
+                label = 'Выберите качества'
+                options ={qualities}
+                name="qalities"
+                onChange ={handleChange}
             />
 
             <button type="submit" disabled = {!isValid} className='btn btn-primary w-100 mx-auto'>Submit</button>
