@@ -6,8 +6,9 @@ import API from "../../API";
 import { validate } from "../../utils/validatator";
 import { validationSchema } from "../../utils/validationSchema";
 import MultiSelectField from "../common/form/multiSelectField";
+import CheckBoxField from "../common/form/checkBoxField";
 const RegesterForm = () => {
-    const [data, setData] = useState({ email: "", password: "", profession: "", sex: "male", qalities: [] });
+    const [data, setData] = useState({ email: "", password: "", profession: "", sex: "male", qalities: [], licence: false });
     const [errors, setErrors] = useState({});
     const [professions, setProfessions] = useState();
     const [qualities, setQualities] = useState({});
@@ -70,7 +71,14 @@ const RegesterForm = () => {
                 name="qalities"
                 onChange ={handleChange}
             />
-
+            <CheckBoxField
+                name ='licence'
+                value={data.licence}
+                onChange ={handleChange}
+                error = {errors.licence}
+            >
+                Подтвердить <a>лицензионное соглашение</a>
+            </CheckBoxField>
             <button type="submit" disabled = {!isValid} className='btn btn-primary w-100 mx-auto'>Submit</button>
         </form>
 
