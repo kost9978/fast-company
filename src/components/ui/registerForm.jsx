@@ -52,6 +52,7 @@ const RegesterForm = () => {
                 defaultOption = 'Choose...'
                 options ={professions}
                 value={data.profession}
+                name="profession"
                 onChange ={handleChange}
                 error = {errors.profession || ""}/>
 
@@ -70,6 +71,7 @@ const RegesterForm = () => {
                 options ={qualities}
                 name="qalities"
                 onChange ={handleChange}
+                defaultValue = {data.qalities}
             />
             <CheckBoxField
                 name ='licence'
