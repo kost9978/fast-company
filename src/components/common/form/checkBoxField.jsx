@@ -32,7 +32,7 @@ CheckBoxField.propTypes = {
     name: PropTypes.string.isRequired,
     value: PropTypes.bool.isRequired,
     onChange: PropTypes.func.isRequired,
-    error: PropTypes.string.isRequired,
+    error: PropTypes.string,
     children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node])
 };
 export default CheckBoxField;

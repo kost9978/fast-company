@@ -12,6 +12,9 @@ const UserPage = ({ userId }) => {
     const handleReturn = () => {
         history.push("/users");
     };
+    const handleEdit = () => {
+        history.push(`/users/${userId}/edit`);
+    };
     if (user) {
         return (
             <>
@@ -20,9 +23,16 @@ const UserPage = ({ userId }) => {
                 <Qualities qualities={user.qualities} />
                 <h3>{`completedMeetings: ${user.completedMeetings}`}</h3>
                 <h1>{`rate: ${user.rate}`}</h1>
-                <button type="button" onClick={handleReturn}>
+                <div className="mb-4">
+                    <button type="button" onClick={handleEdit}>
+                    Редактировать
+                    </button>
+                </div>
+                <div>
+                    <button type="button" onClick={handleReturn}>
                     Все пользователи
-                </button>
+                    </button>
+                </div>
             </>
         );
     } else {

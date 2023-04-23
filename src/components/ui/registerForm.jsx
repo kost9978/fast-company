@@ -8,7 +8,7 @@ import { validationSchema } from "../../utils/validationSchema";
 import MultiSelectField from "../common/form/multiSelectField";
 import CheckBoxField from "../common/form/checkBoxField";
 const RegesterForm = () => {
-    const [data, setData] = useState({ email: "", password: "", profession: "", sex: "male", qalities: [], licence: false });
+    const [data, setData] = useState({ email: "", password: "", profession: {}, sex: "male", qualities: [], licence: false });
     const [errors, setErrors] = useState({});
     const [professions, setProfessions] = useState();
     const [qualities, setQualities] = useState({});
@@ -24,6 +24,10 @@ const RegesterForm = () => {
     const handleChange = (target) => {
         // console.log("target", target.value, target.name);
         setData((prevState) => ({ ...prevState, [target.name]: target.value }));
+    };
+    const handleChangeProf = (target) => {
+        const prof = professions.find((item) => { return item._id === target.value; });
+        setData((prevState) => ({ ...prevState, [target.name]: prof }));
     };
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -50,10 +54,11 @@ const RegesterForm = () => {
 
             <SelectField label = 'Выберите профессию'
                 defaultOption = 'Choose...'
+                selectedValue = {data.profession}
                 options ={professions}
-                value={data.profession}
+                value={Object.keys(data.profession).length ? data.profession.name : ""}
                 name="profession"
-                onChange ={handleChange}
+                onChange ={handleChangeProf}
                 error = {errors.profession || ""}/>
 
             <RadioField options={[
@@ -69,9 +74,10 @@ const RegesterForm = () => {
             <MultiSelectField
                 label = 'Выберите качества'
                 options ={qualities}
-                name="qalities"
+                name="qualities"
                 onChange ={handleChange}
-                defaultValue = {data.qalities}
+                defaultValue = {data.qualities}
+                error = {errors.qualities || ""}
             />
             <CheckBoxField
                 name ='licence'

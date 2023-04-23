@@ -44,6 +44,7 @@ const LoginForm = () => {
                 name ='stayOn'
                 value={data.stayOn}
                 onChange ={handleChange}
+                error =''
             >
                 Оставаться в системе
             </CheckBoxField>

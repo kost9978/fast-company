@@ -27,6 +27,16 @@ export const validationSchema = {
             message: "Професия обязательна для заполнения"
         }
     },
+    qualities: {
+        isRequired: {
+            message: "Качества обязательна для заполнения"
+        }
+    },
+    name: {
+        isRequired: {
+            message: "Имя не должно быть пустым"
+        }
+    },
     licence: {
         isRequired: {
             message: "Просто поставь галку"
