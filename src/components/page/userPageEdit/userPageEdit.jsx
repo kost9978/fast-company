@@ -17,24 +17,10 @@ const UserPageEdit = () => {
     const [professions, setProfessions] = useState();
     const [qualities, setQualities] = useState({});
     useEffect(() => {
-        API.users.getById(userId).then((data) => setUser(data));
-    }, []);
-    useEffect(() => {
+        API.users.getById(userId).then((data) => setData(data));
         API.professions.fetchAll().then((data) => setProfessions(data));
         API.qualities.fetchAll().then((data) => setQualities(data));
     }, []);
-    useEffect(() => {
-        if (user) {
-            setData((prevState) => ({
-                ...prevState,
-                name: user.name,
-                email: user.email,
-                sex: user.sex,
-                profession: user.profession,
-                qualities: user.qualities
-            }));
-        }
-    }, [user]);
 
     useEffect(() => {
         if (data) {
@@ -51,7 +37,6 @@ const UserPageEdit = () => {
         setData((prevState) => ({ ...prevState, [target.name]: prof }));
     };
     const handleChangeQualities = (target) => {
-        // console.log(target);
         const qualities = target.value.map((item) => ({
             _id: item.value,
             name: item.label,
@@ -67,12 +52,9 @@ const UserPageEdit = () => {
         handleReturn();
     };
 
-    // console.log("user", user);
-    // console.log("data", data);
-
     const isValid = Object.keys(errors).length === 0;
     return (data && (
-        <div className="w-50 ml-4">
+        <div className="w-50 ml-4 p-3">
             <TextField label = 'Name'
                 type= 'text'
                 name ='name'
