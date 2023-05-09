@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const SelectField = ({ defaultOption, name, options, label, value, onChange, error, selectedValue }) => {
+const SelectField = ({ defaultOption, name, options, label, value, onChange, error, selectedValue, ...rest }) => {
     const getInputClases = () => {
         return `form-select ${error ? "is-invalid" : ""}`;
     };
@@ -25,7 +25,8 @@ const SelectField = ({ defaultOption, name, options, label, value, onChange, err
                 id = {name}
                 name = {name}
                 onChange ={handleChange}
-                className={getInputClases()}>
+                className={getInputClases()}
+                {...rest}>
                 {!Object.keys(selectedValue).length
                     ? <option disabled value = '' >{defaultOption}</option>
                     : <option value={selectedValue._id} >{selectedValue.name}</option>}

@@ -5,13 +5,11 @@ import TextField from "../../common/form/textField";
 import SelectField from "../../common/form/selectField";
 import RadioField from "../../common/form/RadioField";
 import MultiSelectField from "../../common/form/multiSelectField";
-// import CheckBoxField from "../../common/form/checkBoxField";
 import { validate } from "../../../utils/validatator";
 import { validationSchema } from "../../../utils/validationSchema";
 const UserPageEdit = () => {
     const { userId } = useParams();
     const history = useHistory();
-    const [user, setUser] = useState();
     const [data, setData] = useState();
     const [errors, setErrors] = useState({});
     const [professions, setProfessions] = useState();
@@ -51,22 +49,44 @@ const UserPageEdit = () => {
         await API.users.update(userId, data);
         handleReturn();
     };
+    const handleKeyDown = (event) => {
+        console.log(event);
+        // console.log(document.querySelector("#form").children);
+        if (event.keyCode === 13 || event.keyCode === 40) {
+            const form = document.querySelector("#form").children;
+            const arr = Array.from(form);
+            const ind = arr.indexOf(event.target);
+
+            // console.log("event.target", event.target);
+            // console.log("arr", arr);
+            // console.log("ind", ind);
+
+            // event.preventDefault();
+            // const form = event.target.form;
+            // const ind = Array.prototype.indexOf.call(form, event.target);
+            // form.elements[ind + 1].focus();
+        }
+    };
 
     const isValid = Object.keys(errors).length === 0;
     return (data && (
-        <div className="w-50 ml-4 p-3">
+        <div className="w-50 ml-4 p-3" id="form">
             <TextField label = 'Name'
                 type= 'text'
                 name ='name'
                 value={data.name}
                 onChange ={handleChange}
-                error = {errors.name || ""}/>
+                error = {errors.name || ""}
+                autoFocus
+                onKeyDown = {handleKeyDown}
+            />
             <TextField label = 'Email'
                 type= 'text'
                 name ='email'
                 value={data.email}
                 onChange ={handleChange}
                 error = {errors.email || ""}
+                onKeyDown = {handleKeyDown}
             />
             <SelectField label = 'Выберите профессию'
                 defaultOption = 'Choose...'
@@ -75,7 +95,9 @@ const UserPageEdit = () => {
                 value={data.profession.name}
                 name="profession"
                 onChange ={handleChangeProf}
-                error = {errors.profession || ""}/>
+                error = {errors.profession || ""}
+                onKeyDown = {handleKeyDown}
+            />
             <RadioField options={[
                 { name: "Male", value: "male" },
                 { name: "Female", value: "female" },
