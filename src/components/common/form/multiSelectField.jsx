@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import Select from "react-select";
 
-const MultiSelectField = ({ options, label, name, onChange, defaultValue, error }) => {
+const MultiSelectField = ({ options, label, name, onChange, defaultValue, error, ...rest }) => {
     const getInputClases = () => {
         return `form-select ${error ? "is-invalid" : ""}`;
     };
@@ -37,6 +37,7 @@ const MultiSelectField = ({ options, label, name, onChange, defaultValue, error 
                 classNamePrefix="select"
                 onChange ={handleChange}
                 defaultValue = {defaultValueFormatArray}
+                {...rest}
 
             />
             {error && <div className="invalid-feedback">{error}</div>}

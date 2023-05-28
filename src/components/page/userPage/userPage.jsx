@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { useHistory } from "react-router-dom";
-import Qualities from "./../../ui/qualities/index";
 import API from "./../../../API/index";
+import QualitiesCard from "../../ui/qualitiesCard";
+import UserCard from "../../ui/userCard";
+import MeetingsCard from "../../ui/meetingsCard";
+import Comments from "../../ui/comments";
 const UserPage = ({ userId }) => {
     const [user, setUser] = useState();
     useEffect(() => {
@@ -11,29 +14,29 @@ const UserPage = ({ userId }) => {
     const history = useHistory();
     const handleReturn = () => {
         history.push("/users");
+        // history.goBack();
     };
-    const handleEdit = () => {
-        history.push(`/users/${userId}/edit`);
-    };
+
     if (user) {
         return (
-            <>
-                <h1>{user.name}</h1>
-                <h2>{`profession: ${user.profession.name}`}</h2>
-                <Qualities qualities={user.qualities} />
-                <h3>{`completedMeetings: ${user.completedMeetings}`}</h3>
-                <h1>{`rate: ${user.rate}`}</h1>
-                <div className="mb-4">
-                    <button type="button" onClick={handleEdit}>
-                    Редактировать
-                    </button>
-                </div>
-                <div>
-                    <button type="button" onClick={handleReturn}>
+            <div className="container">
+                <div className="row gutters-sm">
+                    <div className="col-md-4 mb-3">
+                        <UserCard user = {user}/>
+                        <QualitiesCard qualities={user.qualities} />
+                        <MeetingsCard value ={user.completedMeetings}/>
+
+                        <div>
+                            <button type="button" className="btn btn-primary" onClick={handleReturn}>
                     Все пользователи
-                    </button>
+                            </button>
+                        </div>
+                    </div>
+                    <div className="col-md-8">
+                        <Comments/>
+                    </div>
                 </div>
-            </>
+            </div>
         );
     } else {
         return "Loading...";

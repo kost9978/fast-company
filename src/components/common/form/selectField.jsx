@@ -43,7 +43,7 @@ SelectField.defaultProps = {
     type: "text"
 };
 SelectField.propTypes = {
-    label: PropTypes.string.isRequired,
+    label: PropTypes.string,
     defaultOption: PropTypes.string,
     value: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,

@@ -51,81 +51,77 @@ const UserPageEdit = () => {
     };
     const handleKeyDown = (event) => {
         console.log(event);
-        // console.log(document.querySelector("#form").children);
         if (event.keyCode === 13 || event.keyCode === 40) {
-            const form = document.querySelector("#form").children;
-            const arr = Array.from(form);
-            const ind = arr.indexOf(event.target);
-
-            // console.log("event.target", event.target);
-            // console.log("arr", arr);
-            // console.log("ind", ind);
-
-            // event.preventDefault();
-            // const form = event.target.form;
-            // const ind = Array.prototype.indexOf.call(form, event.target);
-            // form.elements[ind + 1].focus();
+            event.preventDefault();
+            const form = event.target.form;
+            const ind = Array.prototype.indexOf.call(form, event.target);
+            form.elements[ind + 1].focus();
         }
     };
 
     const isValid = Object.keys(errors).length === 0;
     return (data && (
-        <div className="w-50 ml-4 p-3" id="form">
-            <TextField label = 'Name'
-                type= 'text'
-                name ='name'
-                value={data.name}
+
+        <div className="w-50 ml-4 p-3" >
+            <form>
+                <TextField label = 'Name'
+                    type= 'text'
+                    name ='name'
+                    value={data.name}
+                    onChange ={handleChange}
+                    error = {errors.name || ""}
+                    autoFocus
+                    onKeyDown = {handleKeyDown}
+                />
+                <TextField label = 'Email'
+                    type= 'text'
+                    name ='email'
+                    value={data.email}
+                    onChange ={handleChange}
+                    error = {errors.email || ""}
+                    onKeyDown = {handleKeyDown}
+                />
+                <SelectField label = 'Выберите профессию'
+                    defaultOption = 'Choose...'
+                    selectedValue = {data.profession}
+                    options ={professions}
+                    value={data.profession.name}
+                    name="profession"
+                    onChange ={handleChangeProf}
+                    error = {errors.profession || ""}
+                    onKeyDown = {handleKeyDown}
+                />
+                <RadioField options={[
+                    { name: "Male", value: "male" },
+                    { name: "Female", value: "female" },
+                    { name: "Other", value: "other" }
+                ]}
+                name ='sex'
+                value={data.sex}
                 onChange ={handleChange}
-                error = {errors.name || ""}
-                autoFocus
+                label = 'Выберите пол'
                 onKeyDown = {handleKeyDown}
-            />
-            <TextField label = 'Email'
-                type= 'text'
-                name ='email'
-                value={data.email}
-                onChange ={handleChange}
-                error = {errors.email || ""}
-                onKeyDown = {handleKeyDown}
-            />
-            <SelectField label = 'Выберите профессию'
-                defaultOption = 'Choose...'
-                selectedValue = {data.profession}
-                options ={professions}
-                value={data.profession.name}
-                name="profession"
-                onChange ={handleChangeProf}
-                error = {errors.profession || ""}
-                onKeyDown = {handleKeyDown}
-            />
-            <RadioField options={[
-                { name: "Male", value: "male" },
-                { name: "Female", value: "female" },
-                { name: "Other", value: "other" }
-            ]}
-            name ='sex'
-            value={data.sex}
-            onChange ={handleChange}
-            label = 'Выберите пол'
-            />
-            <MultiSelectField
-                label = 'Выберите качества'
-                options ={qualities}
-                name="qualities"
-                onChange ={handleChangeQualities}
-                defaultValue = {data.qualities}
-                error = {errors.qualities || ""}
-            />
-            <div className="mb-4">
-                <button type="button" disabled = {!isValid} className='btn btn-primary' onClick={handleEdit}>
+                />
+                <MultiSelectField
+                    label = 'Выберите качества'
+                    options ={qualities}
+                    name="qualities"
+                    onChange ={handleChangeQualities}
+                    defaultValue = {data.qualities}
+                    error = {errors.qualities || ""}
+                    onKeyDown = {handleKeyDown}
+                />
+                <div className="mb-4">
+                    <button type="button" disabled = {!isValid} className='btn btn-primary' onClick={handleEdit}>
         Обновить
-                </button>
-            </div>
-            <div className="mb-4">
-                <button type="button" onClick={handleReturn}>
+                    </button>
+                </div>
+                <div className="mb-4">
+                    <button type="button" onClick={handleReturn}>
     Отменить
-                </button>
-            </div>
+                    </button>
+                </div>
+            </form>
         </div>
     ));
 };
