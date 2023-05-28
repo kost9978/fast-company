@@ -17,7 +17,7 @@ const Comments = () => {
     };
     const handleRemoveComments = (id) => {
         API.comments.remove(id).then((id) => {
-            setComments(comments.filter((x) => x.id !== id));
+            setComments(comments.filter((x) => x._id !== id));
         });
     };
     const sortedComments = orderBy(comments, ["created_at"], ["desc"]);
