@@ -6,21 +6,33 @@ import Pagination from "./../../common/pagination";
 import { paginate } from "./../../../utils/paginate";
 import GroupList from "./../../common/groupList";
 import Status from "./../../ui/searchStatus";
+import { useUser } from "../../../hooks/useUsers";
 
 const UsersListPage = () => {
-    const [users, setUsers] = useState();
-    useEffect(() => {
-        API.users.fetchAll().then((data) => setUsers(data));
-    }, []);
+    const { users } = useUser();
+    // console.log(users);
+    // const [users, setUsers] = useState();
+    // useEffect(() => {
+    //     API.users.fetchAll().then((data) => setUsers(data));
+    // }, []);
     const handleDelete = (userId) => {
-        setUsers(users.filter((user) => user._id !== userId));
+        // setUsers(users.filter((user) => user._id !== userId));
+        console.log(userId);
     };
     const hendleBookmark = (id) => {
-        setUsers((prevSate) =>
-            prevSate.map((user) =>
-                user._id === id ? { ...user, bookmark: !user.bookmark } : user
-            )
-        );
+        // setUsers((prevSate) =>
+        //     prevSate.map((user) =>
+        //         user._id === id ? { ...user, bookmark: !user.bookmark } : user
+        //     )
+        // );
+        const newArray = users.map((user) => {
+            if (user._id === id) {
+                return { ...user, bookmark: !user.bookmark };
+            }
+            return user;
+        });
+        // setUsers(newArray);
+        console.log(newArray);
     };
 
     const pageSize = 8;
